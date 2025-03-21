@@ -11,8 +11,8 @@ import org.junit.runner.RunWith;
         "json:target/cucumber.json"},
         features = "src/test/resources/features",
         glue ="com/survivors/step_defs",
-        dryRun = false,
-        tags = "",
+        dryRun =false,
+        tags = "@wip",
         publish = true
 
 )
