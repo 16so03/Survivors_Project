@@ -38,14 +38,14 @@ public class Hooks {
 		DB_Util.destroy();
 
 	}
-	
-	@Before("@ui")
-	public void setUp() {
-		Driver.get().get(ConfigurationReader.getProperty("url"));
-		Driver.get().manage().window().maximize();
-		Driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-	}
+//	@Before("@ui")
+//	public void setUp() {
+//		Driver.get().get(ConfigurationReader.getProperty("url"));
+//		Driver.get().manage().window().maximize();
+//		Driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//
+//	}
 	
 	@After("@ui")
 	public void tearDown(Scenario scenario) {
