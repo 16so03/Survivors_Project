@@ -1,5 +1,5 @@
 Feature: Add First Item to Cart and Verify
-  @wip
+
   Scenario: Add first item in S size, blue color, quantity 1, and verify in cart
     Given User is on the homepage
     When User clicks on the first item in the catalog

@@ -4,11 +4,14 @@ import com.survivors.pages.LumuHomePage;
 import com.survivors.utilities.BrowserUtils;
 import com.survivors.utilities.ConfigurationReader;
 import com.survivors.utilities.Driver;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
+
+import java.util.Map;
 
 public class HomePageStepDef {
     LumuHomePage homepage = new LumuHomePage();
@@ -48,7 +51,7 @@ public class HomePageStepDef {
     @Then("User opens the cart")
     public void user_opens_the_cart() {
         BrowserUtils.waitForPageToLoad(3);
-       homepage.cartLink.click();
+        homepage.cartLink.click();
     }
 
     @Then("The cart should contain the item with size {string}, color {string}, andquantity {string}")
@@ -65,5 +68,41 @@ public class HomePageStepDef {
         String successMessage = homepage.successMessage.getText();
         System.out.println(successMessage);
         Assert.assertTrue(successMessage.contains(productName));
+    }
+
+    @When("User clicks on {string} in the catalog")
+    public void userClicksOnInTheCatalog(String itemName) {
+        homepage.selectItemByName(itemName);
+    }
+
+    @And("User scrolls down to the review section")
+    public void userScrollsDownToTheReviewSection() {
+        BrowserUtils.scrollToElement(homepage.reviewsTab);
+        homepage.reviewsTab.click();
+        BrowserUtils.hover(homepage.reviewForm);
+
+    }
+
+    @And("User fills out the review form with:")
+    public void userFillsOutTheReviewFormWith(Map<String, String> comments) {
+        System.out.println(comments);
+        homepage.selectStarRating(comments.get("Rating"));
+        homepage.nicknameField.sendKeys(comments.get("Nickname"));
+        homepage.summaryField.sendKeys(comments.get("Summary"));
+        homepage.reviewField.sendKeys(comments.get("Review"));
+    }
+
+    @And("User submits the review")
+    public void userSubmitsTheReview() {
+        homepage.submitReviewButton.click();
+    }
+
+
+    @Then("A confirmation message {string} should be displayed")
+    public void aConfirmationMessageShouldBeDisplayed(String successMessage) {
+        BrowserUtils.waitForVisibility(homepage.successMessage,10);
+        String actual=homepage.successMessage.getText();
+        System.out.println(actual);
+        Assert.assertEquals(actual, successMessage);
     }
 }

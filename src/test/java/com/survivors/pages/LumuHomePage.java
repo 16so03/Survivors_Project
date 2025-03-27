@@ -31,6 +31,23 @@ public class LumuHomePage {
     public WebElement cartLink;
 @FindBy(css = ".product-item-details>.product.options")
     public WebElement productDetails;
+@FindBy(css = "a#tab-label-reviews-title")
+    public WebElement reviewsTab;
+@FindBy(css="form#review-form")
+    public WebElement reviewForm;
+@FindBy(css = "input#nickname_field")
+    public WebElement nicknameField;
+@FindBy(css = "input#summary_field")
+    public WebElement summaryField;
+@FindBy(css="#review_field")
+    public WebElement reviewField;
+@FindBy(css = "button.action.submit.primary")
+    public WebElement submitReviewButton;
+    public void selectStarRating(String starNumber) {
+        String locater="#Rating_"+starNumber;
+        WebElement star = Driver.get().findElement(By.cssSelector(locater));
+        BrowserUtils.clickWithJS(star);
+    }
 public WebElement selectSize(String size){
     size=size.toUpperCase();
     String locater="//div[@role='listbox']//div[@option-label='"+size+"']";
@@ -64,6 +81,11 @@ public WebElement selectSize(String size){
         System.out.println(productDetails);
         return productDetails;
 
+    }
+    public void selectItemByName(String name){
+    String locator="img.product-image-photo[alt='"+name+"']";
+    WebElement item=Driver.get().findElement(By.cssSelector(locator));
+    item.click();
     }
 
 }
